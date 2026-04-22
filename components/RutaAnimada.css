@@ -1,0 +1,327 @@
+/* ── Ruta Animada: Storytelling vertical ── */
+
+/* Outer section */
+.ruta-section {
+  background: #07090A;
+  color: #E8EDEA;
+  position: relative;
+  display: flex;
+  flex-direction: column;   /* columna: container arriba, features abajo */
+  align-items: stretch;
+  padding: 72px 0 0;
+}
+
+/* Container */
+.ruta-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 0;
+}
+
+/* ── Left panel: headline ── */
+.ruta-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 48px 64px 72px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ruta-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #00D46A;
+  margin-bottom: 24px;
+}
+
+.ruta-headline {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(34px, 4vw, 58px);
+  line-height: 1.06;
+  letter-spacing: -2.5px;
+  color: #E8EDEA;
+  margin: 0 0 28px;
+}
+
+.ruta-headline em {
+  font-style: italic;
+  color: #00D46A;
+}
+
+.ruta-sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: #6A8070;
+  line-height: 1.75;
+  max-width: 340px;
+  margin: 0;
+}
+
+/* ── Right panel: route ── */
+.ruta-right {
+  display: flex;
+  align-items: flex-start;
+  padding: 40px 0 40px 24px;
+  gap: 0;
+}
+
+/* SVG column — acompaña visualmente las cards */
+.ruta-svg-wrap {
+  width: 50px;
+  flex-shrink: 0;
+  position: relative;
+  align-self: stretch;
+}
+
+.ruta-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Cards en flujo normal — se distribuyen verticalmente */
+.ruta-cards {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0;
+  padding: 0 0 0 24px;
+  min-height: 480px; /* Mismo alto que el viewBox del SVG */
+}
+
+.ruta-card {
+  padding: 20px 0 20px 20px;
+  border-left: 1px solid rgba(0, 212, 106, 0.18);
+  /* sin position:absolute — flujo normal */
+}
+
+.ruta-card-title {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #E8EDEA;
+  letter-spacing: -0.3px;
+  margin-bottom: 10px;
+}
+
+.ruta-card-text {
+  font-size: 14px;
+  font-weight: 300;
+  color: #6A8070;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 380px;
+}
+
+/* ── Feature Cards interactivas (01 / 02 / 03) ── */
+.ruta-features-wrap {
+  width: 100%;
+  margin-top: 60px;   /* separación fija, no dependiente del alto de la pantalla */
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ruta-features {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.ruta-feat-card {
+  position: relative;
+  padding: 40px 36px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: default;
+  overflow: hidden;
+  transition: background 0.4s ease;
+}
+
+.ruta-feat-card:last-child {
+  border-right: none;
+}
+
+.ruta-feat-card--active {
+  background: rgba(0, 212, 106, 0.04);
+}
+
+/* Glow verde que aparece al hover */
+.ruta-feat-glow {
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 212, 106, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 50%;
+}
+
+.ruta-feat-card--active .ruta-feat-glow {
+  opacity: 1;
+}
+
+.ruta-feat-icon {
+  width: 36px;
+  height: 36px;
+  color: #00D46A;
+  margin-bottom: 4px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ruta-feat-card--active .ruta-feat-icon {
+  transform: scale(1.15);
+}
+
+.ruta-feat-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ruta-feat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: rgba(0, 212, 106, 0.5);
+  text-transform: uppercase;
+}
+
+.ruta-feat-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #E8EDEA;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.ruta-feat-card--active .ruta-feat-title {
+  color: #ffffff;
+}
+
+.ruta-feat-text {
+  font-size: 13.5px;
+  font-weight: 300;
+  color: #6A8070;
+  line-height: 1.65;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.ruta-feat-card--active .ruta-feat-text {
+  color: #8fa898;
+}
+
+/* Barra verde animada en el bottom de cada card al hover */
+.ruta-feat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #00D46A, transparent);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ruta-feat-card--active::after {
+  width: 100%;
+}
+
+.ruta-feat-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #00D46A;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.ruta-feat-action:hover {
+  opacity: 0.8;
+}
+
+.ruta-feat-action svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ruta-feat-card--active .ruta-feat-action svg {
+  transform: translateX(4px);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .ruta-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .ruta-section {
+    padding: 60px 0;
+  }
+
+  .ruta-left {
+    padding: 48px 24px 32px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .ruta-right {
+    padding: 32px 24px 80px;
+    height: auto;
+  }
+
+  .ruta-track {
+    height: 600px; /* Reducido: ahora solo 2 paradas */
+  }
+
+  .ruta-svg-wrap {
+    width: 80px;
+    margin-left: 0;
+  }
+
+  /* Feature cards: columna única en móvil */
+  .ruta-features {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+  }
+
+  .ruta-feat-card {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 32px 24px;
+  }
+
+  .ruta-feat-card:last-child {
+    border-bottom: none;
+  }
+}
+

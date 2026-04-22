@@ -1,0 +1,62 @@
+/* ── Robot Mascot – floating companion ── */
+
+.robot-mascot {
+  position: absolute;  /* Anclado a la sección, sube con la página al scrollear */
+  bottom: 16px;
+  right: -30px;        /* Movido a la derecha para no obstruir lectura */
+  z-index: 100;        /* Encima de los elementos del hero */
+  pointer-events: none; /* No interfiere con clics en la página */
+  user-select: none;
+  opacity: 0;
+  transform: translateY(40px) scale(0.8);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: robotFloat 6s ease-in-out infinite;
+}
+
+.robot-mascot.robot-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── Gentle 3D float loop (vertical + lateral) ── */
+@keyframes robotFloat {
+  0%   { transform: translate(0px, 0px)     rotate(0deg); }
+  25%  { transform: translate(14px, -6px)   rotate(1.5deg); }
+  50%  { transform: translate(0px, -14px)   rotate(0deg); }
+  75%  { transform: translate(-14px, -6px)  rotate(-1.5deg); }
+  100% { transform: translate(0px, 0px)     rotate(0deg); }
+}
+
+/* ── Physics Container (JS controlled) ── */
+.robot-physics-container {
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* ── Canvas (robot video with transparent bg) ── */
+.robot-canvas {
+  display: block;
+  height: 300px;  /* Altura fija */
+  width: auto;    /* Ancho automático según aspect ratio del video */
+  filter: drop-shadow(0 12px 32px rgba(0, 212, 106, 0.45));
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .robot-mascot {
+    bottom: 10px;
+    right: 10px;
+  }
+  .robot-canvas {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .robot-mascot {
+    animation: none !important;
+    transform: none !important;
+  }
+}
