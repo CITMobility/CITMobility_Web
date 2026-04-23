@@ -114,12 +114,12 @@ export default function HeroCanvas() {
           check(); 
         };
         bi.onerror = () => { busLoaded = false; check(); };
-        bi.src = '/bus-cit.png';
+        bi.src = '/bus-cit.jpg';
 
         const bg = new Image();
         bg.onload = () => { bgImage = bg; bgLoaded = true; check(); };
         bg.onerror = () => { bgLoaded = false; check(); };
-        bg.src = '/fondo-monitores.png';
+        bg.src = '/fondo-monitores.jpg';
       });
     }
 
@@ -496,9 +496,9 @@ export default function HeroCanvas() {
     <div ref={wrapperRef} style={{ width: '100%', height: '100%', position: 'relative' }}>
       <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%' }} />
       <div style={{ display: 'none' }}>
-        <video ref={v1Ref} src="/video1.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
-        <video ref={v2Ref} src="/video2.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
-        <video ref={v3Ref} src="/video3.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
+        <video ref={v1Ref} src="/Video1.mp4" muted loop playsInline preload="none" crossOrigin="anonymous" />
+        <video ref={v2Ref} src="/Video2.mp4" muted loop playsInline preload="none" crossOrigin="anonymous" />
+        <video ref={v3Ref} src="/Video3.mp4" muted loop playsInline preload="none" crossOrigin="anonymous" />
       </div>
     </div>
   );

@@ -78,10 +78,11 @@ export default function RobotMascot() {
         {/* Hidden video source */}
         <video
           ref={videoRef}
-          src="/robot.mp4"
+          src="/Robot.mp4"
           loop
           muted
           playsInline
+          preload="none"
           style={{ display: 'none' }}
         />
         {/* Canvas renders video with transparent background */}
