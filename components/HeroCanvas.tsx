@@ -496,9 +496,9 @@ export default function HeroCanvas() {
     <div ref={wrapperRef} style={{ width: '100%', height: '100%', position: 'relative' }}>
       <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%' }} />
       <div style={{ display: 'none' }}>
-        <video ref={v1Ref} src="/video1.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
-        <video ref={v2Ref} src="/video2.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
-        <video ref={v3Ref} src="/video3.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
+        <video ref={v1Ref} src="/v1-opt.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
+        <video ref={v2Ref} src="/v2-opt.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
+        <video ref={v3Ref} src="/v3-opt.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
       </div>
     </div>
   );

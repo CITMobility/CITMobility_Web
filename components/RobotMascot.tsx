@@ -78,7 +78,7 @@ export default function RobotMascot() {
         {/* Hidden video source */}
         <video
           ref={videoRef}
-          src="/robot.mp4"
+          src="/robot-opt.mp4"
           loop
           muted
           autoPlay
