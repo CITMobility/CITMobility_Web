@@ -81,8 +81,8 @@ export default function RobotMascot() {
           src="/Robot.mp4"
           loop
           muted
+          autoPlay
           playsInline
-          preload="none"
           style={{ display: 'none' }}
         />
         {/* Canvas renders video with transparent background */}
