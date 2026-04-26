@@ -23,36 +23,33 @@ export default function ScrollAnimations() {
     revealEls.forEach((el) => revealObserver.observe(el));
 
     // ── 2. Section progress lines ─────────────────────────────────────────
+    const sectionObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('line-animate'); });
+      },
+      { threshold: 0.1 }
+    );
     document.querySelectorAll<HTMLElement>('.section-progress-line').forEach((line) => {
       const section = line.closest('.section-divider')?.nextElementSibling;
-      if (!section) return;
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => { if (e.isIntersecting) line.classList.add('line-animate'); });
-        },
-        { threshold: 0.1 }
-      );
-      obs.observe(section);
+      if (section) sectionObs.observe(section);
     });
 
     // ── 3. Stat pop ────────────────────────────────────────────────────────
+    const statsObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.stat-item').forEach((item, i) => {
+              setTimeout(() => (item as HTMLElement).classList.add('stat-pop'), i * 120);
+            });
+            statsObs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
     const statsContainer = document.querySelector('.stats-container');
-    if (statsContainer) {
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.querySelectorAll('.stat-item').forEach((item, i) => {
-                setTimeout(() => (item as HTMLElement).classList.add('stat-pop'), i * 120);
-              });
-              obs.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.3 }
-      );
-      obs.observe(statsContainer);
-    }
+    if (statsContainer) statsObs.observe(statsContainer);
 
     // ── 4. 3-D card tilt ──────────────────────────────────────────────────
     const cards = document.querySelectorAll<HTMLElement>('.card');
@@ -88,11 +85,18 @@ export default function ScrollAnimations() {
     const hero = document.querySelector<HTMLElement>('.main-wrapper');
     let heroCanvas: HTMLCanvasElement | null = null;
     let heroCtx: CanvasRenderingContext2D | null = null;
-    let particleRaf: number;
+    let particleRaf: number | null = null;
 
     if (hero) {
       heroCanvas = document.createElement('canvas');
       heroCanvas.className = 'hero-particle-canvas';
+      heroCanvas.style.position = 'absolute';
+      heroCanvas.style.top = '0';
+      heroCanvas.style.left = '0';
+      heroCanvas.style.width = '100%';
+      heroCanvas.style.height = '100%';
+      heroCanvas.style.pointerEvents = 'none';
+      heroCanvas.style.zIndex = '0';
       hero.appendChild(heroCanvas);
       heroCtx = heroCanvas.getContext('2d');
 
@@ -128,17 +132,18 @@ export default function ScrollAnimations() {
         if (!heroCtx || !heroCanvas) return;
         heroCtx.clearRect(0, 0, W, H);
 
-        particles.forEach((p) => {
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
           p.x += p.vx;
           p.y += p.vy;
           if (p.x < 0 || p.x > W) p.vx *= -1;
           if (p.y < 0 || p.y > H) p.vy *= -1;
 
-          heroCtx!.beginPath();
-          heroCtx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          heroCtx!.fillStyle = `rgba(0,212,106,${p.opacity})`;
-          heroCtx!.fill();
-        });
+          heroCtx.beginPath();
+          heroCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          heroCtx.fillStyle = `rgba(0,212,106,${p.opacity})`;
+          heroCtx.fill();
+        }
 
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
@@ -147,12 +152,12 @@ export default function ScrollAnimations() {
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < MAX_DIST) {
               const alpha = (1 - dist / MAX_DIST) * 0.25;
-              heroCtx!.beginPath();
-              heroCtx!.moveTo(particles[i].x, particles[i].y);
-              heroCtx!.lineTo(particles[j].x, particles[j].y);
-              heroCtx!.strokeStyle = `rgba(0,212,106,${alpha})`;
-              heroCtx!.lineWidth = 1;
-              heroCtx!.stroke();
+              heroCtx.beginPath();
+              heroCtx.moveTo(particles[i].x, particles[i].y);
+              heroCtx.lineTo(particles[j].x, particles[j].y);
+              heroCtx.strokeStyle = `rgba(0,212,106,${alpha})`;
+              heroCtx.lineWidth = 1;
+              heroCtx.stroke();
             }
           }
         }
@@ -164,7 +169,9 @@ export default function ScrollAnimations() {
     // ── Cleanup ───────────────────────────────────────────────────────────
     return () => {
       revealObserver.disconnect();
-      cancelAnimationFrame(particleRaf);
+      sectionObs.disconnect();
+      statsObs.disconnect();
+      if (particleRaf) cancelAnimationFrame(particleRaf);
       tiltCleanups.forEach((fn) => fn());
       heroCanvas?.remove();
     };
