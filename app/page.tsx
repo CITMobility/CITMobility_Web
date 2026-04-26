@@ -1,4 +1,3 @@
-import HeroCanvas from '../components/HeroCanvas';
 import ScrollAnimations from '../components/ScrollAnimations';
 import RobotMascot from '../components/RobotMascot';
 import RutaAnimada from '../components/RutaAnimada';
@@ -21,7 +20,6 @@ export default function Home() {
         </div>
 
         <div className="hero-canvas-container reveal-right">
-          <HeroCanvas />
         </div>
 
         <div className="stats-container reveal" data-delay="200">
