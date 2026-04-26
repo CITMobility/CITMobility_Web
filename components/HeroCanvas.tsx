@@ -1,9 +1,10 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function HeroCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [loaded, setLoaded] = useState(false);
 
   const v1Ref = useRef<HTMLVideoElement>(null);
   const v2Ref = useRef<HTMLVideoElement>(null);
@@ -479,6 +480,7 @@ export default function HeroCanvas() {
       initBuses();
       lastTime = performance.now();
       animationId = requestAnimationFrame(render);
+      setLoaded(true);
     });
 
     window.addEventListener('resize', resizeCanvas);
@@ -494,6 +496,21 @@ export default function HeroCanvas() {
 
   return (
     <div ref={wrapperRef} style={{ width: '100%', height: '100%', position: 'relative' }}>
+      {!loaded && (
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#F5F7F5',
+          color: '#00D46A',
+          fontSize: '14px',
+          fontFamily: 'system-ui'
+        }}>
+          Cargando...
+        </div>
+      )}
       <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%' }} />
       <div style={{ display: 'none' }}>
         <video ref={v1Ref} src="/v1-opt.mp4" muted loop autoPlay playsInline crossOrigin="anonymous" />
