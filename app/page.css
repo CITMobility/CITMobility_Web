@@ -588,6 +588,20 @@
   transform: none;
 }
 
+/* ── Hero section: nunca invisible ── */
+/* Los elementos del hero usan `animation: fadeUp` y están siempre
+   en el viewport al cargar. Forzamos que nunca queden en opacity:0
+   independientemente del IntersectionObserver. */
+.main-wrapper .reveal,
+.main-wrapper .reveal-left,
+.main-wrapper .reveal-right,
+.main-wrapper .reveal-scale,
+.stats-container.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 /* ── Section Divider (circuito animado) ── */
 .section-divider {
   position: relative;

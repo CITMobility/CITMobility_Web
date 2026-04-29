@@ -23,7 +23,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth eliminado — causa scroll nativo muy lento (3-5s).
+     El scroll suave se maneja programáticamente en el Navbar. */
 }
 
 body {

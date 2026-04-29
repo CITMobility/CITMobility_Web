@@ -2,10 +2,46 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import './Navbar.css';
 
 export default function Navbar() {
   const [menuActive, setMenuActive] = useState(false);
+  const pathname = usePathname();
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    setMenuActive(false);
+    
+    if (pathname !== '/') {
+      window.location.href = `/${targetId}`;
+      return;
+    }
+
+    const element = document.querySelector(targetId);
+    if (element) {
+      const startPosition = window.scrollY;
+      const targetPosition = element.getBoundingClientRect().top + window.scrollY;
+      const duration = 600;
+      let startTime: number | null = null;
+
+      function animation(currentTime: number) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        // Easing function
+        const ease = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
+        
+        window.scrollTo(0, startPosition + (targetPosition - startPosition) * ease);
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      }
+      requestAnimationFrame(animation);
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -22,9 +58,9 @@ export default function Navbar() {
         </svg>
       </button>
       <ul className={`nav-links ${menuActive ? 'active' : ''}`}>
-        <li><Link href="/#nosotros" onClick={() => setMenuActive(false)}>Acerca de nosotros</Link></li>
+        <li><a href="#nosotros" onClick={(e) => handleSmoothScroll(e, '#nosotros')}>Acerca de nosotros</a></li>
         <li><Link href="/productos" onClick={() => setMenuActive(false)}>Productos</Link></li>
-        <li><Link href="/#contacto" className="nav-cta" onClick={() => setMenuActive(false)}>Contáctanos</Link></li>
+        <li><a href="#contacto" className="nav-cta" onClick={(e) => handleSmoothScroll(e, '#contacto')}>Contáctanos</a></li>
       </ul>
     </nav>
   );
