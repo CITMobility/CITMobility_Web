@@ -1,18 +1,10 @@
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
+import { ClientHero, ClientRutaAnimada, ClientEquipo } from '../components/ClientSections';
 import './page.css';
-
-// Importaciones dinámicas sin SSR para componentes con canvas/video
-// Evita el "hydration mismatch" que causa pantalla blanca en Vercel
-const HeroCanvas     = dynamic(() => import('../components/HeroCanvas'),      { ssr: false });
-const ScrollAnimations = dynamic(() => import('../components/ScrollAnimations'), { ssr: false });
-const RobotMascot    = dynamic(() => import('../components/RobotMascot'),      { ssr: false });
-const RutaAnimada    = dynamic(() => import('../components/RutaAnimada'),      { ssr: false });
 
 export default function Home() {
   return (
     <main>
-      <ScrollAnimations />
+      {/* ClientHero incluye: ScrollAnimations, HeroCanvas, RobotMascot */}
 
       {/* ── HERO SECTION ──────────────────────────────────────────── */}
       <section className="main-wrapper">
@@ -25,9 +17,8 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="hero-canvas-container reveal-right">
-          <HeroCanvas />
-        </div>
+        {/* Canvas del hero — client-only (canvas + video) */}
+        <ClientHero />
 
         <div className="stats-container reveal" data-delay="200">
           <div className="stats">
@@ -47,11 +38,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Robot anclado al primer pantallazo (100vh) */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100vh', pointerEvents: 'none', zIndex: 100, overflow: 'hidden' }}>
-        <RobotMascot />
-      </div>
-
       {/* ── DEGRADADO: HERO → IDENTIDAD ─────────────────────────── */}
       <div style={{
         height: '350px',
@@ -60,7 +46,7 @@ export default function Home() {
       }} aria-hidden="true" />
 
       {/* ── NOSOTROS: Ruta Animada ─────────────────────────────────── */}
-      <RutaAnimada />
+      <ClientRutaAnimada />
 
       {/* ── DEGRADADO: IDENTIDAD → EQUIPO (blanco) ─────────────── */}
       <div style={{
@@ -70,70 +56,8 @@ export default function Home() {
       }} aria-hidden="true" />
 
       {/* ── NOSOTROS / EQUIPO SECTION ──────────────────────────────── */}
-      <section id="nosotros" className="equipo-section">
-        <div className="equipo-inner">
-          <div className="equipo-header reveal">
-            <span className="equipo-eyebrow">Nuestro Equipo</span>
-            <h2 className="equipo-headline">
-              Conoce a las <em>personas</em> detrás de la innovación
-            </h2>
-          </div>
+      <ClientEquipo />
 
-          <div className="equipo-grid">
-            {/* Miembro 1 */}
-            <div className="equipo-card reveal" data-delay="0">
-              <div className="equipo-photo-wrap">
-                <Image src="/damiannosotros.jpg" alt="Damián" fill className="equipo-photo" />
-              </div>
-              <span className="equipo-role">CEO &amp; Fundador</span>
-              <h3 className="equipo-name">Damián Peralta</h3>
-              <p className="equipo-bio">Visionario con experiencia liderando equipos innovadores y transformando ideas en soluciones de movilidad inteligente.</p>
-            </div>
-
-            {/* Miembro 2 */}
-            <div className="equipo-card reveal" data-delay="80">
-              <div className="equipo-photo-wrap">
-                <Image src="/angelnosotros.jpg" alt="Ángel" fill className="equipo-photo" />
-              </div>
-              <span className="equipo-role">Director de Tecnología</span>
-              <h3 className="equipo-name">Ángel</h3>
-              <p className="equipo-bio">Experto en arquitectura de software y desarrollo ágil, construyendo soluciones escalables y robustas para el transporte.</p>
-            </div>
-
-            {/* Miembro 3 — placeholder hasta foto */}
-            <div className="equipo-card reveal" data-delay="160">
-              <div className="equipo-photo-wrap">
-                <Image src="/damiannosotros.jpg" alt="Miembro" fill className="equipo-photo" />
-              </div>
-              <span className="equipo-role">Directora Creativa</span>
-              <h3 className="equipo-name">Por Confirmar</h3>
-              <p className="equipo-bio">Diseñadora apasionada por crear experiencias visuales memorables que conectan emocionalmente con los usuarios.</p>
-            </div>
-
-            {/* Miembro 4 — placeholder hasta foto */}
-            <div className="equipo-card reveal" data-delay="240">
-              <div className="equipo-photo-wrap">
-                <Image src="/angelnosotros.jpg" alt="Miembro" fill className="equipo-photo" />
-              </div>
-              <span className="equipo-role">Directora de Marketing</span>
-              <h3 className="equipo-name">Por Confirmar</h3>
-              <p className="equipo-bio">Estratega digital con enfoque centrado en datos para impulsar el crecimiento y la presencia de marca.</p>
-            </div>
-
-            {/* Miembro 5 — placeholder hasta foto */}
-            <div className="equipo-card reveal" data-delay="320">
-              <div className="equipo-photo-wrap">
-                <Image src="/damiannosotros.jpg" alt="Miembro" fill className="equipo-photo" />
-              </div>
-              <span className="equipo-role">Director de Operaciones</span>
-              <h3 className="equipo-name">Por Confirmar</h3>
-              <p className="equipo-bio">Optimizador nato que asegura la eficiencia operativa y el cumplimiento de objetivos estratégicos.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── DEGRADADO: EQUIPO → CONTACTO ─────────────────────────── */}
       {/* ── DEGRADADO: EQUIPO → CONTACTO ─────────────────────────── */}
       <div style={{
         height: '350px',

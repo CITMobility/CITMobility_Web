@@ -78,7 +78,7 @@ export default function Navbar() {
     <nav className="navbar">
       <Link href="/" className="nav-logo" onClick={handleLogoClick}>
         <div className="logo-img">
-          <Image src="/logo-cit.png" alt="CIT" width={80} height={44} style={{ filter: 'sepia(1) saturate(4) hue-rotate(95deg)', objectFit: 'contain', width: 'auto' }} />
+          <Image src="/logo-cit.png" alt="CIT" width={80} height={44} loading="eager" style={{ filter: 'sepia(1) saturate(4) hue-rotate(95deg)', objectFit: 'contain', width: 'auto', height: 'auto' }} />
         </div>
       </Link>
       <button className="menu-toggle" aria-label="Abrir menú" onClick={() => setMenuActive(!menuActive)}>
