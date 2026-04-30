@@ -13,8 +13,16 @@ module.exports = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            // Adjust CSP as needed for fonts, images, etc.
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src https://fonts.gstatic.com;",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: blob:",
+              "font-src 'self' https://fonts.gstatic.com",
+              "media-src 'self' blob:",
+              "worker-src blob:",
+              "connect-src 'self'",
+            ].join('; '),
           },
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -25,3 +33,4 @@ module.exports = {
     ];
   },
 };
+

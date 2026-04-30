@@ -1,8 +1,13 @@
-import HeroCanvas from '../components/HeroCanvas';
-import ScrollAnimations from '../components/ScrollAnimations';
-import RobotMascot from '../components/RobotMascot';
-import RutaAnimada from '../components/RutaAnimada';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import './page.css';
+
+// Importaciones dinámicas sin SSR para componentes con canvas/video
+// Evita el "hydration mismatch" que causa pantalla blanca en Vercel
+const HeroCanvas     = dynamic(() => import('../components/HeroCanvas'),      { ssr: false });
+const ScrollAnimations = dynamic(() => import('../components/ScrollAnimations'), { ssr: false });
+const RobotMascot    = dynamic(() => import('../components/RobotMascot'),      { ssr: false });
+const RutaAnimada    = dynamic(() => import('../components/RutaAnimada'),      { ssr: false });
 
 export default function Home() {
   return (
@@ -57,10 +62,82 @@ export default function Home() {
       {/* ── NOSOTROS: Ruta Animada ─────────────────────────────────── */}
       <RutaAnimada />
 
-      {/* ── DEGRADADO: IDENTIDAD → CONTACTO ─────────────────────── */}
+      {/* ── DEGRADADO: IDENTIDAD → EQUIPO (blanco) ─────────────── */}
       <div style={{
         height: '350px',
         background: 'linear-gradient(to bottom, #07090A 0%, #0d1412 15%, #1a2220 30%, #4a5652 50%, #9aa39e 70%, #d4d8d5 85%, #FFFFFF 100%)',
+        flexShrink: 0,
+      }} aria-hidden="true" />
+
+      {/* ── NOSOTROS / EQUIPO SECTION ──────────────────────────────── */}
+      <section id="nosotros" className="equipo-section">
+        <div className="equipo-inner">
+          <div className="equipo-header reveal">
+            <span className="equipo-eyebrow">Nuestro Equipo</span>
+            <h2 className="equipo-headline">
+              Conoce a las <em>personas</em> detrás de la innovación
+            </h2>
+          </div>
+
+          <div className="equipo-grid">
+            {/* Miembro 1 */}
+            <div className="equipo-card reveal" data-delay="0">
+              <div className="equipo-photo-wrap">
+                <Image src="/damiannosotros.jpg" alt="Damián" fill className="equipo-photo" />
+              </div>
+              <span className="equipo-role">CEO &amp; Fundador</span>
+              <h3 className="equipo-name">Damián Peralta</h3>
+              <p className="equipo-bio">Visionario con experiencia liderando equipos innovadores y transformando ideas en soluciones de movilidad inteligente.</p>
+            </div>
+
+            {/* Miembro 2 */}
+            <div className="equipo-card reveal" data-delay="80">
+              <div className="equipo-photo-wrap">
+                <Image src="/angelnosotros.jpg" alt="Ángel" fill className="equipo-photo" />
+              </div>
+              <span className="equipo-role">Director de Tecnología</span>
+              <h3 className="equipo-name">Ángel</h3>
+              <p className="equipo-bio">Experto en arquitectura de software y desarrollo ágil, construyendo soluciones escalables y robustas para el transporte.</p>
+            </div>
+
+            {/* Miembro 3 — placeholder hasta foto */}
+            <div className="equipo-card reveal" data-delay="160">
+              <div className="equipo-photo-wrap">
+                <Image src="/damiannosotros.jpg" alt="Miembro" fill className="equipo-photo" />
+              </div>
+              <span className="equipo-role">Directora Creativa</span>
+              <h3 className="equipo-name">Por Confirmar</h3>
+              <p className="equipo-bio">Diseñadora apasionada por crear experiencias visuales memorables que conectan emocionalmente con los usuarios.</p>
+            </div>
+
+            {/* Miembro 4 — placeholder hasta foto */}
+            <div className="equipo-card reveal" data-delay="240">
+              <div className="equipo-photo-wrap">
+                <Image src="/angelnosotros.jpg" alt="Miembro" fill className="equipo-photo" />
+              </div>
+              <span className="equipo-role">Directora de Marketing</span>
+              <h3 className="equipo-name">Por Confirmar</h3>
+              <p className="equipo-bio">Estratega digital con enfoque centrado en datos para impulsar el crecimiento y la presencia de marca.</p>
+            </div>
+
+            {/* Miembro 5 — placeholder hasta foto */}
+            <div className="equipo-card reveal" data-delay="320">
+              <div className="equipo-photo-wrap">
+                <Image src="/damiannosotros.jpg" alt="Miembro" fill className="equipo-photo" />
+              </div>
+              <span className="equipo-role">Director de Operaciones</span>
+              <h3 className="equipo-name">Por Confirmar</h3>
+              <p className="equipo-bio">Optimizador nato que asegura la eficiencia operativa y el cumplimiento de objetivos estratégicos.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DEGRADADO: EQUIPO → CONTACTO ─────────────────────────── */}
+      {/* ── DEGRADADO: EQUIPO → CONTACTO ─────────────────────────── */}
+      <div style={{
+        height: '350px',
+        background: 'linear-gradient(to bottom, #FFFFFF 0%, #d4d8d5 15%, #9aa39e 30%, #4a5652 50%, #1a2220 70%, #0d1412 85%, #07090A 100%)',
         flexShrink: 0,
       }} aria-hidden="true" />
 
