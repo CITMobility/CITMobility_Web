@@ -431,55 +431,58 @@ export default function HeroCanvas() {
 
     let animationId: number;
     let lastTime = performance.now();
+    let isRunning = false;
 
     function render(time: number) {
       if (!ctx) return;
-      
       const dt = (time - lastTime) / (1000 / 60);
       lastTime = time;
-
       ctx.clearRect(0, 0, W, H);
-
-      const boxW = W;
-      const boxH = H;
-      const boxX = 0;
-      const boxY = 0;
-      const borderRadius = 20;
-
       updateBuses(dt);
-
       ctx.save();
-      rr(ctx, boxX, boxY, boxW, boxH, borderRadius);
+      rr(ctx, 0, 0, W, H, 20);
       ctx.clip();
-      ctx.translate(boxX, boxY);
-
-      drawMap(boxW, boxH);
-
+      ctx.translate(0, 0);
+      drawMap(W, H);
       busesList.forEach(b => drawBus(b.px, b.py, b.dir));
-
-      let monitorScale = 0.38; // Reducido un 30% para que no cubra el mapa
-      if (boxW < 768) {
-        monitorScale = 0.56; // Reducido proporcionalmente en móviles
-      }
-
+      const monitorScale = W < 768 ? 0.56 : 0.38;
       const mWidth = W * monitorScale;
       const mHeight = H * monitorScale;
-
-      const mX = boxW - mWidth - 25;
-      const mY = boxH - mHeight - 25;
-
-      drawMonitors(mX, mY, monitorScale);
+      drawMonitors(W - mWidth - 25, H - mHeight - 25, monitorScale);
       ctx.restore();
-
       animationId = requestAnimationFrame(render);
     }
+
+    function startLoop() {
+      if (isRunning) return;
+      isRunning = true;
+      lastTime = performance.now();
+      animationId = requestAnimationFrame(render);
+    }
+
+    function stopLoop() {
+      isRunning = false;
+      cancelAnimationFrame(animationId);
+    }
+
+    // Pausa cuando la pestaña no está activa
+    const handleVisibility = () => {
+      if (document.hidden) stopLoop(); else startLoop();
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    // Pausa cuando el canvas sale del viewport
+    const visObs = new IntersectionObserver(
+      (entries) => { entries[0].isIntersecting ? startLoop() : stopLoop(); },
+      { threshold: 0 }
+    );
+    if (wrapper) visObs.observe(wrapper);
 
     loadVideos();
 
     loadImages().then(() => {
       initBuses();
-      lastTime = performance.now();
-      animationId = requestAnimationFrame(render);
+      startLoop();
       setLoaded(true);
     });
 
@@ -487,10 +490,10 @@ export default function HeroCanvas() {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationId);
-      videos.forEach(v => {
-        v.pause();
-      });
+      document.removeEventListener('visibilitychange', handleVisibility);
+      visObs.disconnect();
+      stopLoop();
+      videos.forEach(v => v.pause());
     };
   }, []);
 

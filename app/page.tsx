@@ -1,15 +1,30 @@
-import { ClientHero, ClientRutaAnimada, ClientEquipo } from '../components/ClientSections';
+import HeroCanvas from '../components/HeroCanvas';
+import ScrollAnimations from '../components/ScrollAnimations';
+import RobotMascot from '../components/RobotMascot';
+import RutaAnimada from '../components/RutaAnimada';
+import Image from 'next/image';
 import './page.css';
+
+const TEAM = [
+  { src: '/angelnosotros.jpg', alt: 'Angel Colorado', role: 'CEO', name: 'Angel Colorado', bio: 'Líder de crecimiento empresarial y estrategia de movilidad inteligente.' },
+  { src: '/andrenosotros.jpg', alt: 'André Carvajal', role: 'Director Financiero', name: 'André Carvajal', bio: 'Estrategia corporativa y de negocio. Gestión financiera.' },
+  { src: '/damiannosotros.jpg', alt: 'Damian Peralta', role: 'Líder de hardware', name: 'Damian Peralta', bio: 'Integración de hardware físico y algoritmos de inteligencia artificial.' },
+  { src: '/mateonosotros.jpg', alt: 'Mateo Cruz', role: 'Coordinador de Diseño', name: 'Mateo Cruz', bio: 'Encargado de diseño eléctrico e instalación en vehículos.' },
+  { src: '/omarnosotros.jpg', alt: 'Omar Perez', role: 'Líder de Ingeniería de Nube', name: 'Omar Perez', bio: 'Desarrolla la infraestructura en la nube para dispositivos físicos.' },
+  { src: '/jorgenosotros.jpg', alt: 'Jorge Martínez', role: 'Asesor de mobilidad', name: 'Jorge Martinez', bio: 'Experto en normativas y optimización operativa del transporte urbano.' },
+  { src: '/javiernosotros.jpg', alt: 'Javier Juarez', role: 'Director de Desarrollo Móvil', name: 'Javier Juarez', bio: 'Líder de desarrollo de software.' },
+  { src: '/javiernosotros.jpg', alt: 'Daniel Carballido', role: 'Director de Ciberseguridad', name: 'Daniel Carballido', bio: 'Experto en protección de datos y sistemas seguros.' },
+];
 
 export default function Home() {
   return (
     <main>
-      {/* ClientHero incluye: ScrollAnimations, HeroCanvas, RobotMascot */}
+      <ScrollAnimations />
 
       {/* ── HERO SECTION ──────────────────────────────────────────── */}
       <section className="main-wrapper">
         <div className="hero-content reveal-left">
-          <h1 className="hero-title" data-text="CIT Mobility" style={{ fontSize: 'clamp(50px, 8vw, 130px)', letterSpacing: '-4px' }}>
+          <h1 className="hero-title" style={{ fontSize: 'clamp(50px, 8vw, 130px)', letterSpacing: '-4px' }}>
             CIT <span className="accent">Mobility</span>
           </h1>
           <p className="hero-slogan reveal" data-delay="150" style={{ fontSize: '24px', fontWeight: 400 }}>
@@ -17,8 +32,9 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Canvas del hero — client-only (canvas + video) */}
-        <ClientHero />
+        <div className="hero-canvas-container reveal-right">
+          <HeroCanvas />
+        </div>
 
         <div className="stats-container reveal" data-delay="200">
           <div className="stats">
@@ -38,32 +54,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Robot anclado al primer pantallazo */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100vh', pointerEvents: 'none', zIndex: 100, overflow: 'hidden' }}>
+        <RobotMascot />
+      </div>
+
       {/* ── DEGRADADO: HERO → IDENTIDAD ─────────────────────────── */}
-      <div style={{
-        height: '350px',
-        background: 'linear-gradient(to bottom, #FFFFFF 0%, #d4d8d5 15%, #9aa39e 30%, #4a5652 50%, #1a2220 70%, #0d1412 85%, #07090A 100%)',
-        flexShrink: 0,
-      }} aria-hidden="true" />
+      <div style={{ height: '350px', background: 'linear-gradient(to bottom, #FFFFFF 0%, #d4d8d5 15%, #9aa39e 30%, #4a5652 50%, #1a2220 70%, #0d1412 85%, #07090A 100%)', flexShrink: 0 }} aria-hidden="true" />
 
-      {/* ── NOSOTROS: Ruta Animada ─────────────────────────────────── */}
-      <ClientRutaAnimada />
+      {/* ── IDENTIDAD: Ruta Animada ────────────────────────────────── */}
+      <RutaAnimada />
 
-      {/* ── DEGRADADO: IDENTIDAD → EQUIPO (blanco) ─────────────── */}
-      <div style={{
-        height: '350px',
-        background: 'linear-gradient(to bottom, #07090A 0%, #0d1412 15%, #1a2220 30%, #4a5652 50%, #9aa39e 70%, #d4d8d5 85%, #FFFFFF 100%)',
-        flexShrink: 0,
-      }} aria-hidden="true" />
+      {/* ── DEGRADADO: IDENTIDAD → EQUIPO ────────────────────────── */}
+      <div style={{ height: '350px', background: 'linear-gradient(to bottom, #07090A 0%, #0d1412 15%, #1a2220 30%, #4a5652 50%, #9aa39e 70%, #d4d8d5 85%, #FFFFFF 100%)', flexShrink: 0 }} aria-hidden="true" />
 
-      {/* ── NOSOTROS / EQUIPO SECTION ──────────────────────────────── */}
-      <ClientEquipo />
+      {/* ── NOSOTROS / EQUIPO SECTION ─────────────────────────────── */}
+      <section id="nosotros" className="equipo-section">
+        <div className="equipo-inner">
+          <div className="equipo-header reveal">
+            <span className="equipo-eyebrow">Nuestro Equipo</span>
+            <h2 className="equipo-headline">
+              Conoce a las <em>personas</em> detrás de la innovación
+            </h2>
+          </div>
+          <div className="equipo-grid">
+            {TEAM.map((m, i) => (
+              <div key={i} className="equipo-card reveal">
+                <div className="equipo-photo-wrap">
+                  <Image src={m.src} alt={m.alt} fill sizes="(max-width: 768px) 50vw, 20vw" className="equipo-photo" />
+                </div>
+                <span className="equipo-role">{m.role}</span>
+                <h3 className="equipo-name">{m.name}</h3>
+                <p className="equipo-bio">{m.bio}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── DEGRADADO: EQUIPO → CONTACTO ─────────────────────────── */}
-      <div style={{
-        height: '350px',
-        background: 'linear-gradient(to bottom, #FFFFFF 0%, #d4d8d5 15%, #9aa39e 30%, #4a5652 50%, #1a2220 70%, #0d1412 85%, #07090A 100%)',
-        flexShrink: 0,
-      }} aria-hidden="true" />
+      <div style={{ height: '350px', background: 'linear-gradient(to bottom, #FFFFFF 0%, #d4d8d5 15%, #9aa39e 30%, #4a5652 50%, #1a2220 70%, #0d1412 85%, #07090A 100%)', flexShrink: 0 }} aria-hidden="true" />
 
       {/* ── CONTACTO SECTION ──────────────────────────────────────── */}
       <section id="contacto" className="contacto-section">
@@ -72,7 +102,6 @@ export default function Home() {
             <div className="contacto-tag">Contáctanos</div>
             <h2 className="contacto-title">¿Listo para transformar tu ciudad?</h2>
             <p className="contacto-desc">Escríbenos y un asesor CIT Mobility te contactará para mostrarte cómo podemos modernizar el transporte de tu municipio.</p>
-
             <div className="contacto-info">
               <div className="info-item reveal" data-delay="100">
                 <div className="info-icon">
@@ -85,7 +114,7 @@ export default function Home() {
               </div>
               <div className="info-item reveal" data-delay="200">
                 <div className="info-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
@@ -94,7 +123,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
           <div className="contacto-visual reveal-right" data-delay="200">
             <div className="contacto-visual-circle">
               <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor">

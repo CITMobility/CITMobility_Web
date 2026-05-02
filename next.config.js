@@ -5,6 +5,7 @@
  */
 module.exports = {
   reactStrictMode: true,
+  // allowedDevOrigins: ['192.168.100.31'], // Solo necesario en desarrollo local en red
   async headers() {
     return [
       {
@@ -21,7 +22,8 @@ module.exports = {
               "font-src 'self' https://fonts.gstatic.com",
               "media-src 'self' blob:",
               "worker-src blob:",
-              "connect-src 'self'",
+              // Permite cargar fuentes desde Google y el propio dominio
+              "connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com",
             ].join('; '),
           },
           { key: 'X-Frame-Options', value: 'DENY' },

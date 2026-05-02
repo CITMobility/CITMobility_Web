@@ -52,7 +52,7 @@ const FEATURES = [
   {
     num: '04',
     label: 'Ruti App',
-    text: '',
+    text: 'El puente entre usuario y nube en tiempo real.',
     action: {
       label: 'Más detalles',
       href: '/productos',

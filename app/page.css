@@ -318,30 +318,35 @@
 }
 
 .equipo-inner {
-  max-width: 1200px;
+  max-width: min(1400px, 140vh);
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4vw;
 }
 
 .equipo-header {
-  margin-bottom: 5vh;
+  flex: 0 0 28%;
+  margin-bottom: 0;
 }
 
 .equipo-eyebrow {
   display: inline-block;
-  font-size: 11px;
+  font-size: clamp(10px, 1.5vh, 13px);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 3px;
   color: var(--green);
-  margin-bottom: 12px;
+  margin-bottom: 1vh;
 }
 
 .equipo-headline {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: clamp(32px, 4.5vw, 56px);
+  font-size: clamp(32px, 5vh, 72px);
   line-height: 1.05;
-  letter-spacing: -2.5px;
+  letter-spacing: -2px;
   color: #0d1412;
   margin: 0;
   max-width: 700px;
@@ -354,16 +359,19 @@
 }
 
 .equipo-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 2vw;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3vh 1.5vw;
 }
 
 .equipo-card {
+  width: calc(25% - 1.125vw);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 1vh;
 }
 
 .equipo-photo-wrap {
@@ -392,7 +400,7 @@
 }
 
 .equipo-role {
-  font-size: 10px;
+  font-size: clamp(10px, 1.2vh, 12px);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -401,7 +409,7 @@
 
 .equipo-name {
   font-family: 'Syne', sans-serif;
-  font-size: 18px;
+  font-size: clamp(16px, 2vh, 22px);
   font-weight: 700;
   color: #0d1412;
   margin: 0;
@@ -409,9 +417,9 @@
 }
 
 .equipo-bio {
-  font-size: 13px;
+  font-size: clamp(12px, 1.6vh, 15px);
   color: #6b7c75;
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -420,12 +428,28 @@
 }
 
 @media (max-width: 1025px) {
+  .equipo-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4vh;
+  }
+
+  .equipo-header {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
   .equipo-section {
     padding: 80px 32px;
   }
 
   .equipo-grid {
-    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    justify-content: center;
+  }
+
+  .equipo-card {
+    width: calc(33.333% - 1.34vw);
   }
 }
 
@@ -435,8 +459,11 @@
   }
 
   .equipo-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
+  }
+
+  .equipo-card {
+    width: calc(50% - 12px);
   }
 
   .equipo-header {
@@ -445,8 +472,8 @@
 }
 
 @media (max-width: 480px) {
-  .equipo-grid {
-    grid-template-columns: 1fr;
+  .equipo-card {
+    width: 100%;
   }
 }
 
