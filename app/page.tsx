@@ -13,7 +13,7 @@ const TEAM = [
   { src: '/omarnosotros.jpg', alt: 'Omar Perez', role: 'Líder de Ingeniería de Nube', name: 'Omar Perez', bio: 'Desarrolla la infraestructura en la nube para dispositivos físicos.' },
   { src: '/jorgenosotros.jpg', alt: 'Jorge Martínez', role: 'Asesor de mobilidad', name: 'Jorge Martinez', bio: 'Experto en normativas y optimización operativa del transporte urbano.' },
   { src: '/javiernosotros.jpg', alt: 'Javier Juarez', role: 'Director de Desarrollo Móvil', name: 'Javier Juarez', bio: 'Líder de desarrollo de software.' },
-  { src: '/javiernosotros.jpg', alt: 'Daniel Carballido', role: 'Director de Ciberseguridad', name: 'Daniel Carballido', bio: 'Experto en protección de datos y sistemas seguros.' },
+  { src: '/danielnosotros.jpg', alt: 'Daniel Carballido', role: 'Director de Ciberseguridad', name: 'Daniel Carballido', bio: 'Experto en protección de datos y sistemas seguros.' },
 ];
 
 export default function Home() {
@@ -110,7 +110,7 @@ export default function Home() {
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
                 </div>
-                <span className="info-text">citmobility@gmail.com</span>
+                <span className="info-text">contacto@citmobility.mx</span>
               </div>
               <div className="info-item reveal" data-delay="200">
                 <div className="info-icon">
