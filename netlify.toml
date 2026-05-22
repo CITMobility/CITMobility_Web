@@ -1,0 +1,12 @@
+[build]
+  command   = "npm run build"
+  publish   = ".next"
+
+[build.environment]
+  NODE_VERSION            = "20"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Plugin oficial de Netlify para Next.js
+# Habilita: SSR, image optimization, headers de next.config.ts, next/font
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
