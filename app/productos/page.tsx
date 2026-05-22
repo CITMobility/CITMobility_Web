@@ -1,7 +1,37 @@
-import Link from 'next/link';
 import Image from 'next/image';
-import MockupApp from '../../components/MockupApp';
+import CTASection from '../../components/CTASection';
 import './page.css';
+
+const SCREENS = [
+  {
+    title: 'Tus rutas favoritas',
+    subtitle: 'Siempre a la mano',
+    desc: 'Guarda los trayectos que usas cada día. Filtra por horario, revisa duración y transbordos, y arranca con un solo click.',
+    image: '/mockup-02.webp',
+    alt: 'Pantalla de rutas guardadas en RuTi',
+  },
+  {
+    title: 'Compara y elige',
+    subtitle: 'La mejor ruta para cada momento',
+    desc: 'RuTi te muestra todas las opciones. Tiempo, costo y transbordos a simple vista. Tu elijes cuando llegar',
+    image: '/mockup-03.webp',
+    alt: 'Pantalla de resultados de búsqueda de rutas en RuTi',
+  },
+  {
+    title: 'Guía paso a paso',
+    subtitle: 'Nunca pierdes la parada',
+    desc: 'Instrucciones en tiempo real durante el viaje: cuándo abordar, cuántas paradas faltan y dónde bajar. Tu camión, sin sustos.',
+    image: '/mockup-04.webp',
+    alt: 'Pantalla de navegación activa en RuTi',
+  },
+  {
+    title: 'Explora antes de salir',
+    subtitle: 'Conoce cada metro del recorrido',
+    desc: 'Visualiza el trayecto completo: puntos de subida y bajada, segmentos a pie y en camión. Llegas preparado, sin sorpresas.',
+    image: '/mockup-05.webp',
+    alt: 'Pantalla de exploración de trayecto en RuTi',
+  },
+];
 
 export default function Productos() {
   return (
@@ -21,60 +51,77 @@ export default function Productos() {
 
           <div className="feature-grid">
             <div className="feature-item">
-              <div className="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
-                  <line x1="9" y1="3" x2="9" y2="18"></line>
-                  <line x1="15" y1="6" x2="15" y2="21"></line>
-                </svg>
-              </div>
               <div className="feature-title">Rutas Inteligentes</div>
               <div className="feature-desc">Encuentra la mejor ruta con tiempos reales, costos y autocompletado de tus lugares frecuentes.</div>
             </div>
-            
+
             <div className="feature-item">
-              <div className="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-              </div>
               <div className="feature-title">Botón SOS</div>
               <div className="feature-desc">Botón de pánico accesible al instante para actuar rápidamente en caso de cualquier emergencia.</div>
             </div>
 
             <div className="feature-item">
-              <div className="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-              </div>
               <div className="feature-title">Sistema Familiar</div>
               <div className="feature-desc">Monitorea el viaje de tus seres queridos y recibe notificaciones cuando llegan a su destino.</div>
             </div>
 
             <div className="feature-item">
-              <div className="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-              </div>
               <div className="feature-title">Confianza Total</div>
               <div className="feature-desc">Transporte público más fácil y seguro, reduciendo la incertidumbre diaria de tus trayectos.</div>
             </div>
           </div>
 
-          <Link href="/#contacto" className="btn-primary">Más información</Link>
         </div>
 
         <div className="preview-phones">
-          <MockupApp />
+          <div className="mockup-shell hero-mockup">
+            <Image
+              src="/mockup-02.webp"
+              alt="Pantalla de rutas guardadas en RuTi"
+              width={642}
+              height={1280}
+              className="mockup-image"
+              priority
+            />
+          </div>
         </div>
       </div>
+
+      <section className="screens-showcase">
+        <div className="showcase-head">
+          <h2 className="showcase-title">
+            Cada pantalla, <em>un propósito.</em>
+          </h2>
+          <p className="showcase-lead">
+            Desde planear tu trayecto hasta llegar a destino. RuTi acompaña cada paso del viaje.
+          </p>
+        </div>
+
+        <div className="screens-grid">
+          {SCREENS.map((s, i) => (
+            <article key={i} className="screen-card">
+              <div className="screen-frame">
+                <div className="mockup-shell">
+                  <Image
+                    src={s.image}
+                    alt={s.alt}
+                    width={642}
+                    height={1280}
+                    className="mockup-image"
+                  />
+                </div>
+              </div>
+              <div className="screen-meta">
+                <h3 className="screen-title">{s.title}</h3>
+                <div className="screen-subtitle">{s.subtitle}</div>
+                <p className="screen-desc">{s.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <CTASection />
     </main>
   );
 }

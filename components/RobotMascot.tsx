@@ -21,13 +21,23 @@ export default function RobotMascot() {
     if (!ctx) return;
 
     const startDrawing = () => {
-      // Use video's natural dimensions to preserve aspect ratio
-      const W = video.videoWidth || 640;
-      const H = video.videoHeight || 640;
+      // Render at half resolution to cut chroma-key pixel processing by 75%
+      const SCALE = 0.5;
+      const W = Math.round((video.videoWidth || 640) * SCALE);
+      const H = Math.round((video.videoHeight || 640) * SCALE);
       canvas.width = W;
       canvas.height = H;
 
-      const drawFrame = () => {
+      // Cap at 24fps — robot animation doesn't need 60fps
+      const TARGET_FPS = 24;
+      const FRAME_MS = 1000 / TARGET_FPS;
+      let lastDraw = 0;
+
+      const drawFrame = (now: number) => {
+        rafRef.current = requestAnimationFrame(drawFrame);
+        if (now - lastDraw < FRAME_MS) return;
+        lastDraw = now;
+
         if (video.readyState >= 2) {
           ctx.drawImage(video, 0, 0, W, H);
           const frame = ctx.getImageData(0, 0, W, H);
@@ -44,9 +54,8 @@ export default function RobotMascot() {
           }
           ctx.putImageData(frame, 0, 0);
         }
-        rafRef.current = requestAnimationFrame(drawFrame);
       };
-      drawFrame();
+      rafRef.current = requestAnimationFrame(drawFrame);
     };
 
     video.addEventListener('loadedmetadata', () => {

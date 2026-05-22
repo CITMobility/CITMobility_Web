@@ -37,7 +37,7 @@
 }
 
 .hero-title {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-syne, 'Syne'), sans-serif;
   font-weight: 800;
   font-size: clamp(60px, 7vw, 110px);
   line-height: 0.9;
@@ -99,7 +99,7 @@
 }
 
 .stat-value {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-syne, 'Syne'), sans-serif;
   font-weight: 700;
   font-size: 28px;
   color: var(--green);
@@ -169,7 +169,7 @@
 }
 
 .nos-headline {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-syne, 'Syne'), sans-serif;
   font-weight: 800;
   font-size: clamp(36px, 5vw, 66px);
   line-height: 1.04;
@@ -225,7 +225,7 @@
 }
 
 .pillar-num {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-syne, 'Syne'), sans-serif;
   font-size: 11px;
   font-weight: 700;
   color: var(--green);
@@ -270,7 +270,7 @@
 
 .nos-block-label {
   display: block;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-syne, 'Syne'), sans-serif;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -342,7 +342,7 @@
 }
 
 .equipo-headline {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-syne, 'Syne'), sans-serif;
   font-weight: 800;
   font-size: clamp(32px, 5vh, 72px);
   line-height: 1.05;
@@ -408,7 +408,7 @@
 }
 
 .equipo-name {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-syne, 'Syne'), sans-serif;
   font-size: clamp(16px, 2vh, 22px);
   font-weight: 700;
   color: #0d1412;
@@ -530,7 +530,7 @@
 }
 
 .contacto-title {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-syne, 'Syne'), sans-serif;
   font-weight: 800;
   font-size: clamp(32px, 8vw, 56px);
   line-height: 1.05;

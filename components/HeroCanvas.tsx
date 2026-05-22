@@ -431,12 +431,19 @@ export default function HeroCanvas() {
 
     let animationId: number;
     let lastTime = performance.now();
+    let lastRender = 0;
     let isRunning = false;
+    // City map runs at 30fps — buses move slowly and monitors update rarely
+    const RENDER_INTERVAL = 1000 / 30;
 
     function render(time: number) {
       if (!ctx) return;
+      animationId = requestAnimationFrame(render);
+      if (time - lastRender < RENDER_INTERVAL) return;
+      // dt uses time since last rendered frame so bus speed is correct at 30fps
       const dt = (time - lastTime) / (1000 / 60);
       lastTime = time;
+      lastRender = time;
       ctx.clearRect(0, 0, W, H);
       updateBuses(dt);
       ctx.save();
@@ -450,7 +457,6 @@ export default function HeroCanvas() {
       const mHeight = H * monitorScale;
       drawMonitors(W - mWidth - 25, H - mHeight - 25, monitorScale);
       ctx.restore();
-      animationId = requestAnimationFrame(render);
     }
 
     function startLoop() {

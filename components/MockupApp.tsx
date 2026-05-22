@@ -1,8 +1,7 @@
 export default function MockupApp() {
   return (
-    <div className="app-preview-wrapper">
-      <div className="ruti-phone">
-        <div className="screen">
+    <div className="ruti-phone">
+      <div className="screen">
           
           <div className="dynamic-island"></div>
 
@@ -196,6 +195,5 @@ export default function MockupApp() {
 
         </div>
       </div>
-    </div>
   );
 }
